@@ -1,0 +1,22 @@
+﻿@model List<ASM2.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if(Model != null)
+{
+    <div style="text-align: center">
+    @foreach(var product in Model)
+    {
+        <div style="background-color: lightgrey; margin: 10px; display: inline-block; border: 1px solid black;
+        padding: 10px; width: 280px; height: 350px">
+            <img style="width: 50%; height: 40%" src="~/image/@product.Image">
+            <h6 style="">Product Name: @product.Name</h6>
+			<p style="">Category: @product.CategoryName</p>
+            <p style="">Price: @product.Price</p>
+			<p>Description: @product.Description</p>
+        </div>
+    }
+    </div>
+}

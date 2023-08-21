@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ASM2.props" />
+</Project>
