@@ -12,6 +12,6 @@ namespace ASM2.Models
         public string UserId { get; set; } = null!;
         public IdentityUser User = null!;
         public bool IsDeleted { get; set; } = false;
-        public List<CartItem>? CartItem { get; set;}
-    }
+        public ICollection<CartItem>? CartItem { get; set;}
+	}
 }

@@ -20,6 +20,6 @@ namespace ASM2.Models
         public string? Image { get; set; }
         [StringLength(200)]
         public string? Description { get; set; }
-        public List<CartItem>? CartItem { get; set;}
+        public ICollection<CartItem>? CartItem { get; set;}
     }
 }
