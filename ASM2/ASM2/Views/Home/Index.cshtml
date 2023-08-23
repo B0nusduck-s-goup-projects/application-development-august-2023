@@ -6,16 +6,19 @@
 
 @if(Model != null)
 {
-    <div style="text-align: center">
+    <div class="w-100 d-flex flex-wrap">
     @foreach(var product in Model)
     {
-        <div style="background-color: lightgrey; margin: 10px; display: inline-block; border: 1px solid black;
-        padding: 10px; width: 280px; height: 350px">
-            <img style="width: 50%; height: 40%" src="~/image/@product.Image">
-            <h6 style="">Product Name: @product.Name</h6>
-			<p style="">Category: @product.CategoryName</p>
-            <p style="">Price: @product.Price</p>
-			<p>Description: @product.Description</p>
+        <div class="card mx-2 mb-5" style="background-color: lightgrey; margin: 1rem; border: 1px solid black;
+        padding: 1rem; width: 19rem; height: 30rem">
+            <img class="card-img-top" style="width: 100%; height: 50%" src="~/image/@product.Image">
+            <div class="card-body">
+				<h5 class="card-title" style="text-align: center">@product.Name</h5>
+                <p class="card-text mb-0">Price: @product.Price $</p>
+			    <p class="card-text mb-0">Category: @product.CategoryName</p>
+				<p class="card-text mb-0">Description: @product.Description</p>
+                <a href="#" class="btn btn-primary" style="position: absolute; right: 4%; bottom: 3%">add to cart</a>
+            </div>
         </div>
     }
     </div>
