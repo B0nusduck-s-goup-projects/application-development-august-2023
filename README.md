@@ -29,7 +29,7 @@ patch note
 
 -fixing some incorrect label.
 
----cart-backend branch--
+---cart-backend branch---
 
 
 -changing "to many" relation ship indicator form List to ICollection for better efficiency.
@@ -44,4 +44,4 @@ patch note
 -implement backend function for joining table related to Cart and return a joined object.
 
 
-*note: functions in this branch has yet to be implement into UI element.
+*note: functions in this branch has yet to be tested or implement into UI element.
