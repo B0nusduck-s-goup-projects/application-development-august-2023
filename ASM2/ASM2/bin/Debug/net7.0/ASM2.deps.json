@@ -13,8 +13,7 @@
           "Microsoft.AspNetCore.Identity.UI": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.10",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9",
-          "typeahead.js-bootstrap.css": "0.0.4"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9"
         },
         "runtime": {
           "ASM2.dll": {}
@@ -52,11 +51,6 @@
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
           }
-        }
-      },
-      "bootstrap/3.0.0": {
-        "dependencies": {
-          "jQuery": "1.10.2"
         }
       },
       "Humanizer/2.14.1": {
@@ -599,7 +593,6 @@
           }
         }
       },
-      "jQuery/1.10.2": {},
       "Microsoft.AspNetCore.Cryptography.Internal/7.0.10": {
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
@@ -2600,17 +2593,6 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      },
-      "Twitter.Typeahead/0.10.0": {
-        "dependencies": {
-          "jQuery": "1.10.2"
-        }
-      },
-      "typeahead.js-bootstrap.css/0.0.4": {
-        "dependencies": {
-          "Twitter.Typeahead": "0.10.0",
-          "bootstrap": "3.0.0"
-        }
       }
     }
   },
@@ -2633,13 +2615,6 @@
       "sha512": "sha512-EycyMsb6rD2PK9P0SyibFfEhvWWttdrYhyPF4f41uzdB/44yQlV+2Wehxyg489Rj6gbPvSPgbKq0xsHJBhipZA==",
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
-    },
-    "bootstrap/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-d1JUd1ZjfbhGGTxjBSjCLIV+O//hZDcvI0hnaeTL3VHAD+6Z89vgPwV0K/nmPM4hZKq172iPV55lCSpohT6WmA==",
-      "path": "bootstrap/3.0.0",
-      "hashPath": "bootstrap.3.0.0.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",
@@ -2990,13 +2965,6 @@
       "sha512": "sha512-VIXB7HCUC34OoaGnO3HJVtSv2/wljPhjV7eKH4+TFPgQdJj2lvHNKY41Dtg0Bphu7X5UaXFR4zrYYyo+GNOjbA==",
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
-    },
-    "jQuery/1.10.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-uPspgAZqsXYOwLW+Kf3uRxdFAyX1EiEd6AWJhCsnZNVsUJmEbsZSxA0P+ku6oAhHI682TOSwkbmmJPwFgdY5cA==",
-      "path": "jquery/1.10.2",
-      "hashPath": "jquery.1.10.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/7.0.10": {
       "type": "package",
@@ -4257,20 +4225,6 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
-    },
-    "Twitter.Typeahead/0.10.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UInNTJACKxxSFbyd5S744+a0RlEQGbxQr1dmz1X9ZDwKsSG3CacTF/PH5FoJHHC29tvlXI7oLrSCHXFV28GlcA==",
-      "path": "twitter.typeahead/0.10.0",
-      "hashPath": "twitter.typeahead.0.10.0.nupkg.sha512"
-    },
-    "typeahead.js-bootstrap.css/0.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ePpcmGXS5g6ovxvxUjfK9bdiEoo2lLv4D7sZIOgddz4k7UqTmEaiUv+kp8C85F6NzYXNqwqKwTUd9kF/4akzUQ==",
-      "path": "typeahead.js-bootstrap.css/0.0.4",
-      "hashPath": "typeahead.js-bootstrap.css.0.0.4.nupkg.sha512"
     }
   }
 }

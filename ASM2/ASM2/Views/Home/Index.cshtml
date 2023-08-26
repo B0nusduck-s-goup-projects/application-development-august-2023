@@ -17,9 +17,34 @@
                 <p class="card-text mb-0">Price: @product.Price $</p>
 			    <p class="card-text mb-0">Category: @product.CategoryName</p>
 				<p class="card-text mb-0">Description: @product.Description</p>
-                <a href="#" class="btn btn-primary" style="position: absolute; right: 4%; bottom: 3%">add to cart</a>
+                <button type="button" onclick="add(@product.Id)" class="btn btn-primary" style="position: absolute; right: 4%; bottom: 3%">add to cart</button>
             </div>
         </div>
     }
     </div>
+}
+
+@section Scripts{
+    <script>
+        user = "@User.Identity?.Name?.ToString()";
+        async function add(ProductId) {
+            if(user === ""){
+                window.location.replace("/Identity/Account/Login");
+            }
+            else
+            {
+                try{
+                    var response = await fetch(`/Cart/AddItem?productId=${ProductId}`);
+                    if(response.status==200){
+                        var result = await response.json();
+                        var cartCountEL = document.getElementById("cartCount");
+                        cartCountEL.innerHTML = result;
+                    }
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+        }
+    </script>
 }
