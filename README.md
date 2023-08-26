@@ -1,6 +1,6 @@
-#patch note
+# patch note
 
-##---master branch---
+## ---master branch---
 
 
 -implement CRUD for Product & category.
@@ -21,7 +21,7 @@
 -implement basic UI display for role.
 
 
-##---visual-update branch---
+## ---visual-update branch---
 
 
 -improve front page UI.
@@ -29,7 +29,7 @@
 
 -fixing some incorrect label.
 
-##---cart-backend branch---
+## ---cart-backend branch---
 
 
 -changing "to many" relation ship indicator form List to ICollection for better efficiency.
@@ -44,9 +44,9 @@
 -implement backend function for joining table related to Cart and return a joined object.
 
 
-###*note: functions in this branch **has not been tested or implemented** into UI element.
+*note: functions in this branch **has not been tested or implemented** into UI element.
 
-##---cart-part-1 branch---
+## ---cart-part-1 branch---
 
 -implement the add to cart function to the front end.
 
