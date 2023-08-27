@@ -1,0 +1,72 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "index";
+}
+
+<h1>index</h1>
+
+@if (Model.CartItem?.Count > 0)
+{
+    <a class="btn btn-danger" href="/Cart/DeleteCart">delete cart</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                ProductName
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                UnitPrice
+            </th>
+			<th>
+                Quantity
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th>
+                Image
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItem)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <img id="imgViewer" src="~/image/@Html.DisplayFor(modelItem => item.Product.Image)">
+                <td>
+                    <a href="/Cart/AddItem?productId=@item.ProductId&&redirect=1">+</a> |
+                    <a href="/Cart/RemoveItem?productId=@item.ProductId">-</a> |
+                    <a href="/Cart/DeleteItem?productId=@item.ProductId">Delete item</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <div class="my-2">
+        <h5>total: @Model.CartItem.Select(a => a.TotalPrice).Sum()</h5>
+    </div>
+</table>
+}
+else
+{
+<h2>there are no item in cart</h2>
+}

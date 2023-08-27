@@ -16,6 +16,6 @@ namespace ASM2.Models
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public int UnitPrice { get; set;}
+        public int TotalPrice { get; set;}
     }
 }

@@ -6,8 +6,10 @@ namespace ASM2.Repositories
 	{
 		Task<int> AddItem(int ProductId, int quantity);
 		Task<int> RemoveItem(int ProductId);
-		Task<Cart> GetUserCart();
+		void DeleteItem(int ProductId);
+        Task<Cart> GetUserCart();
 		Task<int> GetQuantity(string userID = "");
 		Cart GetCart(string userId);
+		void DeleteCart();
 	}
 }
