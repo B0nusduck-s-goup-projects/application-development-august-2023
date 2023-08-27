@@ -51,3 +51,9 @@
 -implement the add to cart function to the front end.
 
 -implement a counter indicating the numers of product in cart.
+
+## ---cart-part-2 branch---
+
+-implement the update cart and delete cart function.
+
+-read cart is implemented but some bug still presist regarding the table merging that is needed to display cart item's information.
