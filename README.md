@@ -57,3 +57,9 @@
 -implement the update cart and delete cart function.
 
 -read cart is implemented but some bug still presist regarding the table merging that is needed to display cart item's information.
+
+## ---cart-final branch---
+
+-implement cart display, fully implementing crud for cart.
+
+-still need some optimization but still work fine by itself.
