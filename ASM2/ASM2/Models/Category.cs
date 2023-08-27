@@ -9,6 +9,6 @@ namespace ASM2.Models
         [Required]
         [StringLength(80)]
         public string Name { get; set; } = null!;
-        public ICollection<Product>? Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }

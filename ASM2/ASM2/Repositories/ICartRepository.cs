@@ -1,4 +1,5 @@
 ﻿using ASM2.Models;
+using ASM2.Models.ViewModel;
 
 namespace ASM2.Repositories
 {
@@ -7,7 +8,7 @@ namespace ASM2.Repositories
 		Task<int> AddItem(int ProductId, int quantity);
 		Task<int> RemoveItem(int ProductId);
 		void DeleteItem(int ProductId);
-        Task<Cart> GetUserCart();
+        Task<CartViewModel> GetUserCart();
 		Task<int> GetQuantity(string userID = "");
 		Cart GetCart(string userId);
 		void DeleteCart();
