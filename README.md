@@ -60,6 +60,4 @@
 
 ## ---cart-final branch---
 
--implement cart display, fully implementing crud for cart.
-
--still need some optimization but still work fine by itself.
+-read cart is now fully functional though some obvious optimization can be done but it still work fine by itself.
