@@ -53,6 +53,7 @@
                 </td>
                 <td>
                     <img id="imgViewer" src="~/image/@Model.Products.FirstOrDefault(x => x.Id == item.ProductId)!.Image?.ToString()">
+                </td>
                 <td>
                     <a href="/Cart/AddItem?productId=@item.ProductId&&redirect=1">+</a> |
                     <a href="/Cart/RemoveItem?productId=@item.ProductId">-</a> |

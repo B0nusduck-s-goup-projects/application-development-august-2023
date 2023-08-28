@@ -12,5 +12,6 @@ namespace ASM2.Repositories
 		Task<int> GetQuantity(string userID = "");
 		Cart GetCart(string userId);
 		void DeleteCart();
-	}
+
+    }
 }

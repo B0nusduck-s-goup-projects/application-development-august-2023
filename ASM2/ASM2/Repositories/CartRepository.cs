@@ -220,11 +220,11 @@ namespace ASM2.Repositories
 
 		public async Task<int> GetQuantity(string userID = "")
 		{
-			if (!string.IsNullOrEmpty(userID))
+			if (string.IsNullOrEmpty(userID))
 			{
 				userID = GetUserId();
 			}
-			var data = await (from Cart in _context.Cart.Where(x => x.IsDeleted == false)
+			var data = await (from Cart in _context.Cart.Where(x => x.IsDeleted == false && x.UserId ==userID)
 							  join CartItem in _context.CartItem
 							  on Cart.Id equals CartItem.CartId
 							  select new { CartItem.Id }).ToListAsync();
