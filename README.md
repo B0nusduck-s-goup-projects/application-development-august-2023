@@ -61,3 +61,8 @@
 ## ---cart-final branch---
 
 -read cart is now fully functional though some obvious optimization can be done but it still work fine by itself.
+
+## ---update-1 branch---
+-fix some bug regarding cart item ammount display.
+-add some comment regarding database extention packet installment.
+-adjust some code to fix some minor issue.
