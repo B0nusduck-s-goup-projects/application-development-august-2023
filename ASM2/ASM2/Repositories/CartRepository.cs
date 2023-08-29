@@ -74,7 +74,7 @@ namespace ASM2.Repositories
 			return cartItemCount;
 		}
 
-		public async Task<int> RemoveItem(int ProductId)
+		public async Task<int> RemoveItem(int ProductId, int quantity)
 		{
 			try
 			{
@@ -100,7 +100,8 @@ namespace ASM2.Repositories
 					}
 					else
 					{
-						cartItem.Quantity--;
+						cartItem.Quantity-= quantity;
+                        			cartItem.TotalPrice -= (quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price);
 					}
 					_context.SaveChanges();
 				}
