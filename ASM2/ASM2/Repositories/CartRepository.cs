@@ -47,7 +47,7 @@ namespace ASM2.Repositories
 					if (cartItem != null)
 					{
 						cartItem.Quantity += quantity;
-						cartItem.UnitPrice += (quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price);
+						cartItem.TotalPrice += (quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price);
 					}
 					else
 					{
@@ -57,7 +57,7 @@ namespace ASM2.Repositories
 							ProductId = ProductId,
 							ProductName = _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Name,
 							Quantity = quantity,
-							UnitPrice = quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price
+                            TotalPrice = quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price
 						};
 						_context.CartItem.Add(cartItem);
 					}
@@ -91,7 +91,7 @@ namespace ASM2.Repositories
 					var cartItem = _context.CartItem.FirstOrDefault(x => x.CartId == cart.Id && x.ProductId == ProductId);
 					if (cartItem == null)
 					{
-						throw new Exception("cart is emty");
+						throw new Exception("cart don't have item");
 					}
 					else if (cartItem.Quantity == 1)
 					{
@@ -112,15 +112,58 @@ namespace ASM2.Repositories
 			return cartItemCount;
 		}
 
+		public void DeleteItem(int ProductId)
+		{
+            try
+            {
+                if (string.IsNullOrEmpty(GetUserId()))
+                {
+                    throw new Exception("user not found");
+                }
+                else
+                {
+                    var cart = GetCart(GetUserId());
+                    if (cart == null)
+                    {
+                        throw new Exception("cart not found");
+                    }
+                    var cartItem = _context.CartItem.FirstOrDefault(x => x.CartId == cart.Id && x.ProductId == ProductId);
+                    if (cartItem == null)
+                    {
+                        throw new Exception("cart don't have item");
+                    }
+                    else
+                    {
+                        _context.CartItem.Remove(cartItem);
+                    }
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
 		public async Task<Cart> GetUserCart()
 		{
 			var userId = GetUserId();
 			if (userId == null)
 				throw new Exception("please login");
-			var cart = await _context.Cart.Include(a => a.CartItem)!
+			var cart = await _context.Cart
+									.Include(a => a.CartItem)
 									.ThenInclude(a => a.Product)
 									.ThenInclude(a => a.Category)
-									.Where(a => a.UserId == userId).FirstOrDefaultAsync();
+									.Where(a => a.UserId == userId && a.IsDeleted == false).FirstOrDefaultAsync();
+			if (cart == null)
+			{
+				cart = new Cart()
+				{
+					UserId = GetUserId(),
+				};
+				_context.Cart.Add(cart);
+			}
+			_context.SaveChanges();
 			return cart;
 		}
 
@@ -130,7 +173,7 @@ namespace ASM2.Repositories
 			{
 				userID = GetUserId();
 			}
-			var data = await (from Cart in _context.Cart
+			var data = await (from Cart in _context.Cart.Where(x => x.IsDeleted == false)
 							  join CartItem in _context.CartItem
 							  on Cart.Id equals CartItem.CartId
 							  select new { CartItem.Id }).ToListAsync();
@@ -141,6 +184,14 @@ namespace ASM2.Repositories
 		{
 			var cart = _context.Cart.Where(x => x.UserId == userId).ToList().Where(x => x.IsDeleted == false).FirstOrDefault();
 			return  cart;
+		}
+
+		public void DeleteCart()
+		{
+			var userId = GetUserId();
+			var cart = GetCart(userId);
+			cart.IsDeleted = true;
+			_context.SaveChanges();
 		}
 
 		private string GetUserId()
