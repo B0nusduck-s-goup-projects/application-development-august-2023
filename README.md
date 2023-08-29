@@ -22,48 +22,48 @@
 ~~-implement basic UI display for role.~~
 
 
-## ---visual-update branch---
+~~## ---visual-update branch---~~
 
 
--improve front page UI.
+~~-improve front page UI.~~
 
 
--fixing some incorrect label.
+~~-fixing some incorrect label.~~
 
-## ---cart-backend branch---
-
-
--changing "to many" relation ship indicator form List to ICollection for better efficiency.
+~~## ---cart-backend branch---~~
 
 
--implement backend function for "adding"/"removing" single item to/from cart.
+~~-changing "to many" relation ship indicator form List to ICollection for better efficiency.~~
 
 
--"adding" function automaticaly adding a cart to user when use.
+~~-implement backend function for "adding"/"removing" single item to/from cart.~~
 
 
--implement backend function for joining table related to Cart and return a joined object.
+~~-"adding" function automaticaly adding a cart to user when use.~~
 
 
-*note: functions in this branch **has not been tested or implemented** into UI element.
+~~-implement backend function for joining table related to Cart and return a joined object.~~
 
-## ---cart-part-1 branch---
 
--implement the add to cart function to the front end.
+~~*note: functions in this branch **has not been tested or implemented** into UI element.~~
 
--implement a counter indicating the numers of product in cart.
+~~## ---cart-part-1 branch---~~
 
-## ---cart-part-2 branch---
+~~-implement the add to cart function to the front end.~~
 
--implement the update cart and delete cart function.
+~~-implement a counter indicating the numers of product in cart.~~
 
--read cart is implemented but some bug still presist regarding the table merging that is needed to display cart item's information.
+~~## ---cart-part-2 branch---~~
 
-## ---cart-final branch---
+~~-implement the update cart and delete cart function.~~
 
--read cart is now fully functional though some obvious optimization can be done but it still work fine by itself.
+~~-read cart is implemented but some bug still presist regarding the table merging that is needed to display cart item's information.~~
 
-## ---update-1 branch---
--fix some bug regarding cart item ammount display.
--add some comment regarding database extention packet installment.
--adjust some code to fix some minor issue.
+~~## ---cart-final branch---~~
+
+~~-read cart is now fully functional though some obvious optimization can be done but it still work fine by itself.~~
+
+~~## ---update-1 branch---~~
+~~-fix some bug regarding cart item ammount display.~~
+~~-add some comment regarding database extention packet installment.~~
+~~-adjust some code to fix some minor issue.~~
