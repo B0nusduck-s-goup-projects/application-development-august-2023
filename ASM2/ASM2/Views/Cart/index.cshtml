@@ -6,7 +6,7 @@
 
 <h1>index</h1>
 
-@if (Model.Cart.CartItem.Count > 0)
+@if (Model.Cart.CartItem != null && Model.Cart.CartItem.Count > 0)
 {
     <a class="btn btn-danger" href="/Cart/DeleteCart">delete cart</a>
 <table class="table table-striped">
