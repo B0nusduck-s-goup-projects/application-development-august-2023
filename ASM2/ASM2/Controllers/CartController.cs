@@ -33,9 +33,9 @@ namespace ASM2.Controllers
 			return RedirectToAction("Index");
 		}
 		[Authorize]
-		public async Task<IActionResult> RemoveItem(int productId)
+		public async Task<IActionResult> RemoveItem(int productId, int quantity = 1)
 		{
-			var cartCcount = await _repository.RemoveItem(productId);
+			var cartCcount = await _repository.RemoveItem(productId, quantity);
 			return RedirectToAction("Index");
 		}
 		[Authorize]
