@@ -74,7 +74,7 @@ namespace ASM2.Repositories
 			return cartItemCount;
 		}
 
-		public async Task<int> RemoveItem(int ProductId)
+		public async Task<int> RemoveItem(int ProductId, int quantity)
 		{
 			try
 			{
@@ -100,7 +100,8 @@ namespace ASM2.Repositories
 					}
 					else
 					{
-						cartItem.Quantity--;
+						cartItem.Quantity-= quantity;
+                        			cartItem.TotalPrice -= (quantity * _context.Product.FirstOrDefault(x => x.Id == ProductId)!.Price);
 					}
 					_context.SaveChanges();
 				}
@@ -220,11 +221,11 @@ namespace ASM2.Repositories
 
 		public async Task<int> GetQuantity(string userID = "")
 		{
-			if (!string.IsNullOrEmpty(userID))
+			if (string.IsNullOrEmpty(userID))
 			{
 				userID = GetUserId();
 			}
-			var data = await (from Cart in _context.Cart.Where(x => x.IsDeleted == false)
+			var data = await (from Cart in _context.Cart.Where(x => x.IsDeleted == false && x.UserId ==userID)
 							  join CartItem in _context.CartItem
 							  on Cart.Id equals CartItem.CartId
 							  select new { CartItem.Id }).ToListAsync();
