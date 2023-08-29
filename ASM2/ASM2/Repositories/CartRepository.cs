@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow.ValueContentAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Transactions;
 
 namespace ASM2.Repositories
@@ -13,7 +14,7 @@ namespace ASM2.Repositories
 		private readonly ApplicationDbContext _context;
 		private readonly UserManager<IdentityUser> _userManager;
 		private readonly IHttpContextAccessor _contextAccessor;
-		CartRepository(ApplicationDbContext context,
+		public CartRepository(ApplicationDbContext context,
 			UserManager<IdentityUser> userManager,
 			IHttpContextAccessor contextAccessor)
 		{
@@ -21,14 +22,14 @@ namespace ASM2.Repositories
 			_userManager = userManager;
 			_contextAccessor = contextAccessor;
 		}
-		public bool AddItem(int ProductId, int quantity)
+		public async Task<int> AddItem(int ProductId, int quantity)
 		{
 			using var transaction = _context.Database.BeginTransaction();
 			try
 			{
 				if (string.IsNullOrEmpty(GetUserId()))
 				{
-					return false;
+					throw new Exception("user not found");
 				}
 				else
 				{
@@ -62,34 +63,35 @@ namespace ASM2.Repositories
 					}
 					_context.SaveChanges();
 					transaction.Commit();
-					return true;
 				}
 			}
 			catch (Exception e)
 			{
-				return false;
+				throw;
 			}
+			var cartItemCount = await GetQuantity(GetUserId());
+			return cartItemCount;
 		}
 
-		public bool RemoveItem(int ProductId)
+		public async Task<int> RemoveItem(int ProductId)
 		{
 			try
 			{
 				if (string.IsNullOrEmpty(GetUserId()))
 				{
-					return false;
+					throw new Exception("user not found");
 				}
 				else
 				{
 					var cart = GetCart(GetUserId());
 					if (cart == null)
 					{
-						return false;
+						throw new Exception("cart not found");
 					}
 					var cartItem = _context.CartItem.FirstOrDefault(x => x.CartId == cart.Id && x.ProductId == ProductId);
 					if (cartItem == null)
 					{
-						return false;
+						throw new Exception("cart is emty");
 					}
 					else if (cartItem.Quantity == 1)
 					{
@@ -100,16 +102,17 @@ namespace ASM2.Repositories
 						cartItem.Quantity--;
 					}
 					_context.SaveChanges();
-					return true;
 				}
 			}
 			catch (Exception e)
 			{
-				return false;
+				throw;
 			}
+			var cartItemCount = await GetQuantity(GetUserId());
+			return cartItemCount;
 		}
 
-		public async Task<IEnumerable<Cart>> GetUserCart()
+		public async Task<Cart> GetUserCart()
 		{
 			var userId = GetUserId();
 			if (userId == null)
@@ -117,13 +120,26 @@ namespace ASM2.Repositories
 			var cart = await _context.Cart.Include(a => a.CartItem)!
 									.ThenInclude(a => a.Product)
 									.ThenInclude(a => a.Category)
-									.Where(a => a.UserId == userId).ToListAsync();
+									.Where(a => a.UserId == userId).FirstOrDefaultAsync();
 			return cart;
 		}
 
-		private Cart GetCart(string userId)
+		public async Task<int> GetQuantity(string userID = "")
 		{
-			var cart = _context.Cart.Where(x => x.UserId == userId).ToList().Where(x => x.IsDeleted = false).FirstOrDefault();
+			if (!string.IsNullOrEmpty(userID))
+			{
+				userID = GetUserId();
+			}
+			var data = await (from Cart in _context.Cart
+							  join CartItem in _context.CartItem
+							  on Cart.Id equals CartItem.CartId
+							  select new { CartItem.Id }).ToListAsync();
+			return data.Count();
+		}
+
+		public Cart GetCart(string userId)
+		{
+			var cart = _context.Cart.Where(x => x.UserId == userId).ToList().Where(x => x.IsDeleted == false).FirstOrDefault();
 			return  cart;
 		}
 

@@ -4,8 +4,10 @@ namespace ASM2.Repositories
 {
 	public interface ICartRepository
 	{
-		bool AddItem(int ProductId, int quantity);
-		bool RemoveItem(int ProductId);
-		Task<IEnumerable<Cart>> GetUserCart();
+		Task<int> AddItem(int ProductId, int quantity);
+		Task<int> RemoveItem(int ProductId);
+		Task<Cart> GetUserCart();
+		Task<int> GetQuantity(string userID = "");
+		Cart GetCart(string userId);
 	}
 }

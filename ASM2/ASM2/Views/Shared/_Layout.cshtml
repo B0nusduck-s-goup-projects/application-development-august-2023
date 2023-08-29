@@ -50,4 +50,26 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<script>
+    //alert("test script");
+    user = "@User.Identity?.Name?.ToString()";
+    if (user != ""){
+        loadCartCount();
+    }
+    
+    async function loadCartCount() {
+        try {
+            var response = await fetch(`/Cart/GetTotalCartItem`);
+            if (response.status == 200) {
+                var result = await response.json();
+                var cartCountEL = document.getElementById("cartCount");
+                cartCountEL.innerHTML = result;
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+</script>
 </html>
