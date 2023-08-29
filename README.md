@@ -4,7 +4,7 @@
 
 -project main branch, containing the latest working verson
 
-~~-implement CRUD for Product & category.
+~~ -implement CRUD for Product & category.
 
 
 -implement user register.
@@ -19,7 +19,7 @@
 -implement role selection to user register.
 
 
--implement basic UI display for role.~~
+-implement basic UI display for role. ~~
 
 
 ## ---visual-update branch---
