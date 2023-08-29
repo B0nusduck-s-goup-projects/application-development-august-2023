@@ -10,6 +10,11 @@ namespace ASM2.Data
             : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseLazyLoadingProxies(); // Enable lazy loading
+        }
         public DbSet<ASM2.Models.Category> Category { get; set; } = default!;
         public DbSet<ASM2.Models.Product> Product { get; set; } = default!;
         public DbSet<ASM2.Models.Role> Role { get; set; } = default!;

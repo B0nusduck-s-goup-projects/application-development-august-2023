@@ -1,5 +1,6 @@
 ﻿using ASM2.Data;
 using ASM2.Models;
+using ASM2.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow.ValueContentAnalysis;
@@ -145,26 +146,76 @@ namespace ASM2.Repositories
             }
         }
 
-		public async Task<Cart> GetUserCart()
+		public async Task<CartViewModel> GetUserCart()
 		{
 			var userId = GetUserId();
 			if (userId == null)
 				throw new Exception("please login");
 			var cart = await _context.Cart
-									.Include(a => a.CartItem)
-									.ThenInclude(a => a.Product)
-									.ThenInclude(a => a.Category)
-									.Where(a => a.UserId == userId && a.IsDeleted == false).FirstOrDefaultAsync();
+                                    /*i dont know why, but the damn produdct table wont merge with the other table so i have to 
+									 do some terrible work around, it says the table is invalid inside an 'Include' operation, 
+									since it does not represent a property access. anyway ive manage to work around this but the
+									soluton is kinda terrible imo*/
+                                    //.Include(a => a.CartItem)
+                                    //.ThenInclude(a => a.Product)
+                                    //.ThenInclude(a => a.Category)
+                                    .Where(a => a.UserId == userId && a.IsDeleted == false).FirstOrDefaultAsync();
+			
+
 			if (cart == null)
 			{
 				cart = new Cart()
 				{
 					UserId = GetUserId(),
 				};
-				_context.Cart.Add(cart);
+                await _context.Cart.AddAsync(cart);
+                await _context.SaveChangesAsync();
 			}
-			_context.SaveChanges();
-			return cart;
+			else
+			{
+				var items = await _context.CartItem.Where(x => x.CartId == cart.Id).ToListAsync();
+				List<Product> products = new List<Product>();
+											/*fix attemp #? tbh i dont remember what attemp this is, the other atemp is just micro adjustment
+											 which is just too insignificant to keep around. anyway this is the atemp that almost help me 
+											solve it, the only problem is that this querry cant return any value other than null, IDK why
+											i just coppy it form some document or video, i dont remember*/
+											//cart.CartItem.Where(cartItem => cartItem.Product != null)
+											//.Select(cartItem => cartItem.Product)
+											//.ToList();
+				foreach (var item in items) 
+				{
+					var product = _context.Product.FirstOrDefault(x => x.Id == item.ProductId);
+					products.Add(product!);
+				}
+				/*i was thinking about adding category for it's name but because i add cat name
+					 to product earlier out of lazyness to avoid merging two table, so i just use
+					the cat name from the product object to avoid more debug*/
+                //var categories = products.Select(product => product.Category).ToList();
+
+                var viewModel = new CartViewModel
+                {
+                    Cart = cart,
+                    Products = products,
+					//also a part of category i dont want to do more debug
+                    //Categories = categories
+                };
+
+                return viewModel;
+            }
+			/*fix attemp #1-8 at this time i though the cause was because the cart item was nullable
+			 so i try putting it some where it cant be null, turns out it was not the problem*/
+			//if (cart.CartItem != null)
+			//{
+			//    foreach (var cartItem in cart.CartItem)
+			//    {
+			//        _context.Entry(cartItem)
+			//            .Reference(ci => ci.Product)
+			//            .Query()
+			//            .Include(p => p.Category)
+			//            .Load();
+			//    }
+			//}
+			return new CartViewModel();
 		}
 
 		public async Task<int> GetQuantity(string userID = "")

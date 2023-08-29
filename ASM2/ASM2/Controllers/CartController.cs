@@ -1,4 +1,5 @@
 ﻿using ASM2.Data;
+using ASM2.Models;
 using ASM2.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,12 +44,7 @@ namespace ASM2.Controllers
 			_repository.DeleteItem(productId);
             return RedirectToAction("Index");
         }
-        //[Authorize]
-        //public IActionResult GetUserCart()
-        //{
-        //	var cart = _repository.GetUserCart();
-        //	return View(cart);
-        //}
+
         [Authorize]
 		public async Task<IActionResult> GetTotalCartItem()
 		{

@@ -261,3 +261,5 @@ D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\obj\Deb
 D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\obj\Debug\net7.0\ASM2.pdb
 D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\obj\Debug\net7.0\ASM2.genruntimeconfig.cache
 D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\obj\Debug\net7.0\ref\ASM2.dll
+D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\bin\Debug\net7.0\Castle.Core.dll
+D:\study\works\application development\assignment 2\asm 2 code\ASM2\ASM2\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Proxies.dll

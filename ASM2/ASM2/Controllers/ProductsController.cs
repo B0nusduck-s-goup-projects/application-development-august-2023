@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASM2.Data;
 using ASM2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASM2.Controllers
 {
@@ -20,6 +21,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Products
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
               return _context.Product != null ? 
@@ -28,6 +30,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Products/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Product == null)
@@ -46,18 +49,20 @@ namespace ASM2.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewBag.Category = new SelectList(_context.Category.ToList(), "Id", "Name");
             return View();
         }
 
+        //failed attempt of making create function that can add image directly to database as binary data
+
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //failed attempt of making create function that can add image to database
-
+        
+        //[Authorize(Roles = "admin")]
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Price,Image,Description")] Product product, IFormFile ImageFile)
@@ -84,6 +89,7 @@ namespace ASM2.Controllers
 
         //working controller add image file name instead
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Price,Image,Description")] Product product)
@@ -99,6 +105,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Product == null)
@@ -118,6 +125,7 @@ namespace ASM2.Controllers
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryId,Price,Image,Description")] Product product)
@@ -152,6 +160,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Product == null)
@@ -170,6 +179,7 @@ namespace ASM2.Controllers
         }
 
         // POST: Products/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -188,6 +198,7 @@ namespace ASM2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "admin")]
         private bool ProductExists(int id)
         {
           return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();

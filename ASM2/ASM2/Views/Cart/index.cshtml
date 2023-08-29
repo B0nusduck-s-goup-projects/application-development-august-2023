@@ -1,4 +1,4 @@
-﻿@model Cart
+﻿@model ASM2.Models.ViewModel.CartViewModel
 
 @{
     ViewData["Title"] = "index";
@@ -6,7 +6,7 @@
 
 <h1>index</h1>
 
-@if (Model.CartItem?.Count > 0)
+@if (Model.Cart.CartItem.Count > 0)
 {
     <a class="btn btn-danger" href="/Cart/DeleteCart">delete cart</a>
 <table class="table table-striped">
@@ -33,17 +33,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.CartItem)
+        @foreach (var item in Model.Cart.CartItem)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Category.Name)
+                    @Model.Products.FirstOrDefault(x => x.Id == item.ProductId)!.CategoryName!.ToString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Price)
+                    @Model.Products.FirstOrDefault(x => x.Id == item.ProductId)!.Price!.ToString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
@@ -52,7 +52,7 @@
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
                 <td>
-                    <img id="imgViewer" src="~/image/@Html.DisplayFor(modelItem => item.Product.Image)">
+                    <img id="imgViewer" src="~/image/@Model.Products.FirstOrDefault(x => x.Id == item.ProductId)!.Image?.ToString()">
                 <td>
                     <a href="/Cart/AddItem?productId=@item.ProductId&&redirect=1">+</a> |
                     <a href="/Cart/RemoveItem?productId=@item.ProductId">-</a> |
@@ -61,10 +61,10 @@
             </tr>
         }
     </tbody>
-    <div class="my-2">
-        <h5>total: @Model.CartItem.Select(a => a.TotalPrice).Sum()</h5>
-    </div>
 </table>
+<div class="my-2">
+    <h5>total: @Model.Cart.CartItem.Select(a => a.TotalPrice).Sum()</h5>
+</div>
 }
 else
 {

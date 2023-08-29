@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASM2.Data;
 using ASM2.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace ASM2.Controllers
 {
@@ -20,6 +22,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
               return _context.Category != null ? 
@@ -28,6 +31,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -36,6 +40,7 @@ namespace ASM2.Controllers
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
@@ -50,6 +55,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Category == null)
@@ -68,6 +74,7 @@ namespace ASM2.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
@@ -101,6 +108,7 @@ namespace ASM2.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Category == null)
@@ -119,6 +127,7 @@ namespace ASM2.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -137,6 +146,7 @@ namespace ASM2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "admin")]
         private bool CategoryExists(int id)
         {
           return (_context.Category?.Any(e => e.Id == id)).GetValueOrDefault();
